@@ -1,0 +1,81 @@
+<?
+include "dbconnect.php";
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id='frm' action="regist.php" method="post">
+        <input type="text" name="name" id="name" placeholder="이름"/>
+        <input type="text" name="id" id="id" placeholder="아이디"/>
+        <input type="text" name="password" id="password" placeholder="비밀번호"/>
+        <input type="submit" id='btnRegist' value="전송" />
+    </form>
+
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>순서</th>
+                    <th>이름</th>
+                    <th>아이디</th>
+                    <th>비밀번호</th>
+                    <th>등록일자</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?
+                $sql = "select * from member order by uid asc"; // order by 를 적지 않으면 기본으로 desc
+                $result = mysqli_query($conn, $sql);
+
+                while($t = mysqli_fetch_object($result)) {
+                    echo "<tr>";
+                    echo "<td>".$t->uid."</td>";
+                    echo "<td>".$t->name."</td>";
+                    echo "<td>".$t->id."</td>";
+                    echo "<td>".$t->password."</td>";
+                    echo "<td>".$t->registDate."</td>";    
+                    echo "<td><input type='button' value='삭제' onclick='deleteData(".$t->uid.")' /></td>";      
+                    echo "<td><input type='button' value='수정' onclick='modifyData(".$t->uid.")' /></td>";         
+                    echo "</tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
+<script>
+const frm = document.getElementById('frm');
+const btnRegist = document.getElementById('btnRegist');
+
+window.addEventListener('DOMContentLoaded', ()=>{
+    btnRegist.addEventListener('click',()=>{
+        event.preventDefault(); // 폼전송을 막는다..
+
+        if(document.getElementById('name').value == "") {
+            alert("이름을 입력하세요");
+            return false;
+        }
+
+        frm.submit();
+    })
+})
+
+function deleteData(uid) {
+    alert(uid);
+    location.href = "./delete.php?uid=" + uid;
+}
+
+function modifyData(uid) {
+    
+    location.href = "./modify.html?uid=" + uid;
+}
+</script>

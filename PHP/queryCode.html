@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS `member` (
+  `uid` int(11) NOT NULL AUTO_INCREMENT COMMENT '고유값',
+  `name` varchar(20) NOT NULL COMMENT '이름',
+  `id` varchar(20) NOT NULL,
+  `age` int(11) NOT NULL,
+  `registDate` date NOT NULL,
+  PRIMARY KEY (`uid`),
+  KEY `name` (`name`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='공부용 회원' AUTO_INCREMENT=9 ;
+
+--
+-- 테이블의 덤프 데이터 `member`
+--
+
+INSERT INTO `member` (`uid`, `name`, `id`, `age`, `registDate`) VALUES
+(8, 'jhana', 'hana', 24, '2022-12-01'),
+(6, 'yis', 'is', 29, '2022-12-01'),
+(7, 'khs', 'zeze', 51, '2022-12-01');
